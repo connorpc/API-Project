@@ -7,6 +7,7 @@ const cors = requre('cors');
 const csurf = requre('csurf');
 const helmet = requre('helmet');
 const cookieParser = requre('cookie-parser');
+const routes = require('./routes');
 
 // self explanatory code that checks if env var 'environment' is set to 'production' or not
 const { environment } = require('./config');
@@ -42,3 +43,11 @@ app.use(
         }
     })
 );
+
+// connect all the mf routes
+app.use(routes);
+
+// Your code here
+
+
+module.exports = app;
