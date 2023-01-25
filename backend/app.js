@@ -9,6 +9,8 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes');
 
+const { ValidationError } = require('sequelize');
+
 // self explanatory code that checks if env var 'environment' is set to 'production' or not
 const { environment } = require('./config');
 const isProduction = environment === 'production';
@@ -48,6 +50,35 @@ app.use(
 app.use(routes);
 
 // Your code here
+// catch unhandled requests and forward to error handler
+app.use((_req, _res, next) => {
+    const err = new Error("The requested resource couldn't be found.");
+    err.title = "Resource Not Found";
+    err.errors = ["The requested resource couldn't be found."];
+    err.status = 404;
+    next(err);
+});
 
+// process sequelize errors
+app.use((err, _req, _res, next) => {
+    // check if error is a sequelize error:
+    if (err instanceof ValidationError) {
+        err.errors = err.errors.map((e) => e.message);
+        err.title = "Validation Error";
+    }
+    next(err);
+});
+
+// error formatter
+app.use((err, _req, res, _next) => {
+    res.status(err.status || 500);
+    console.error(err);
+    res.json({
+        title: err.title || "Server Error",
+        message: err.message,
+        errors: err.errors,
+        stack: isProduction ? null : err.stack
+    });
+});
 
 module.exports = app;
