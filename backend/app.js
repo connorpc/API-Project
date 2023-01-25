@@ -2,11 +2,11 @@
 // require everything
 const express = require('express');
 require('express-async-errors');
-const morgan = requre('morgan');
-const cors = requre('cors');
-const csurf = requre('csurf');
-const helmet = requre('helmet');
-const cookieParser = requre('cookie-parser');
+const morgan = require('morgan');
+const cors = require('cors');
+const csurf = require('csurf');
+const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 const routes = require('./routes');
 
 // self explanatory code that checks if env var 'environment' is set to 'production' or not
