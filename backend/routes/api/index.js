@@ -1,5 +1,7 @@
 // backend/routes/api/index.js
 const router = require('express').Router();
+const sessionRouter = require('./session.js');
+const usersRouter = require('./users.js');
 const { restoreUser } = require('../../utils/auth.js');
 
 // connect restoreUser middleware to the API router
@@ -7,13 +9,15 @@ const { restoreUser } = require('../../utils/auth.js');
 //     if current user session is not valid, set req.user to null
 router.use(restoreUser);
 
+router.use('/session', sessionRouter);
 
+router.use('/users', usersRouter);
 
-// ------------------------------- TEST MIDDLEWARE  -------------------------------
-//
-// router.post('/test', function(req, res) {
-//     res.json({ requestBody: req.body });
-// });
+router.post('/test', function(req, res) {
+    res.json({ requestBody: req.body });
+});
+
+module.exports = router;
 
 // -------------------------- USER AUTH MIDDLEWARE TESTS --------------------------
 //
@@ -45,5 +49,3 @@ router.use(restoreUser);
 // router.get('/require-auth', requireAuth, (req, res) => {
 //     return res.json(req.user);
 // });
-
-module.exports = router;
