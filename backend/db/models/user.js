@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
     // save to save in a JWT, like id, username, and email (NOT posswords/other
     // sensitive information) (RETURNS OBJECT WITH USER INFO)
     toSafeObject() {
-        const { id, username, email } = this; // context will be the User instance
-        return { id, username, email };
+        const { id, firstName, lastName, email, username } = this; // context will be the User instance
+        return { id, firstName, lastName, email, username };
     }
 
     // validate password accepts a password string and returns true if there is
@@ -103,6 +103,12 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
             len: [60, 60]
         }
+    },
+    firstName: {
+        type: DataTypes.STRING
+    },
+    lastName: {
+        type: DataTypes.STRING
     }
   }, {
     sequelize,

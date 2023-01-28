@@ -24,17 +24,21 @@ module.exports = {
         {
             email: 'connorgav@twitch.tv',
             username: 'connorgav',
-            hashedPassword: bcrypt.hashSync('basedbassword')
+            hashedPassword: bcrypt.hashSync('basedbassword'),
+            firstName: 'Connor',
+            lastName: 'Phelps'
         },
         {
             email: 'hyperoidyt@gmail.com',
             username: 'hyperoid_yt',
-            hashedPassword: bcrypt.hashSync('tinkatinkatontheg0at')
+            hashedPassword: bcrypt.hashSync('tinkatinkatontheg0at'),
+            firstName: 'Hyper',
+            lastName: 'Roid'
         },
         {
             email: 'bighugehotdog@yahoo.com',
             username: 'weinerwizard1',
-            hashedPassword: bcrypt.hashSync('leG04T!')
+            hashedPassword: bcrypt.hashSync('leG04T!'),
         },
     ], {});
   },
